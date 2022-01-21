@@ -1,0 +1,29 @@
+{% extends 'main/layout.html' %}
+
+{% block title %}Машины в ремонте{% endblock %}
+
+{% block content %}
+    <div class="feautures">
+        <h1>Машины в ремонте</h1>
+        <div>machine</div>
+        <div>Машина</div>
+        <table>
+            <tr>
+                <th>id</th>
+                <th>Прибор</th>
+                <th>Дата изготовления</th>
+                <th>Дата ремонта</th>
+            </tr>
+            {% for i in agr %}
+            <tr>
+                <td>{{ i.id }}</td>
+                <td>{{ i.agregat }}</td>
+                <td>{{ i.date }}</td>
+                <td>{{ i.update }}</td>
+            </tr>
+            {% endfor %}
+        </table>
+        <br>
+        <a href="{% url 'create_agr' %}"><button class="btn btn-success" type="submit">Добавить запись</button></a>
+    </div>
+{% endblock %}
