@@ -1,11 +1,24 @@
 from django.shortcuts import render, redirect
-from .models import Agregat
+from .models import Agregat, Vertolet
 from .forms import AgregatForm
+from django.views.generic import DetailView
 
 
 def machine(request):
     agr = Agregat.objects.all()
-    return render(request, 'machine/machine.html', {'agr': agr})
+    vert = Vertolet.objects.all()
+    return render(request, 'machine/machine.html', {'agr': agr, 'vert': vert})
+
+
+class MachineDetailView(DetailView):
+    model = Vertolet
+    # queryset = Agregat.objects.filter(vert_id)
+    template_name = 'machine/machine_details.html'
+    context_object_name = 'vertolet'
+    # pk_url_kwarg =
+
+    def get_queryset(self):
+        # РАЗОБРАТСЯ!!!!!!! return Agregat.objects.filter(vertolet__.kwards['vertolet_'])
 
 
 def create_agr(request):
@@ -17,8 +30,8 @@ def create_agr(request):
             return redirect('machine')
         else:
             error = 'Неверные данные'
-
-    form = AgregatForm()
+    else:
+        form = AgregatForm()
 
     data = {
         'form': form,

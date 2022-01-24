@@ -4,10 +4,8 @@
 
 {% block content %}
     <div class="feautures">
-        {% for el in vert %}
-            <p>{{ el.vs_number }}</p>
-        {% endfor %}
-
+        <h1>{{ vertolet.vs_number }}</h1>
+        <h1>{{ vert.vs_number }}</h1>
         <table>
             <tr>
                 <th>id</th>
@@ -24,5 +22,11 @@
             </tr>
             {% endfor %}
         </table>
+        <br>
+        {% for vs_number in Agregat.vertolet %}
+
+        {% endfor %}
+        <br>
+        <a href="{% url 'create_agr' %}"><button class="btn btn-success" type="submit">Добавить запись</button></a>
     </div>
 {% endblock %}
