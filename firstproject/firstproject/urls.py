@@ -7,5 +7,5 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('', include('main.urls')), #Указывает главную страницу
     path('machine/', include('machine.urls')),
-    path('users/', include('users.urls'))
+    path('account/', include('account.urls'))
 ] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)

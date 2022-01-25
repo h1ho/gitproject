@@ -2,7 +2,7 @@ from .models import Agregat
 from django.forms import ModelForm, TextInput, DateTimeInput
 
 
-#Привязываем форму к бд
+# Привязываем форму к бд
 class AgregatForm(ModelForm):
     class Meta:
         model = Agregat
