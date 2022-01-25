@@ -8,9 +8,6 @@ class Vertolet(models.Model):
     def __str__(self):
         return self.vs_number
 
-    def get_absolute_url(self):
-        return reverse('machine_detail', kwargs={'vert_id': self.pk})
-
     class Meta:
         verbose_name = 'Вертолет'
         verbose_name_plural = 'Вертолеты'

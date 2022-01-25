@@ -12,13 +12,10 @@ def machine(request):
 
 class MachineDetailView(DetailView):
     model = Vertolet
-    # queryset = Agregat.objects.filter(vert_id)
+    # queryset = Agregat.objects.filter(Vertolet__vs_number=)
     template_name = 'machine/machine_details.html'
     context_object_name = 'vertolet'
-    # pk_url_kwarg =
-
-    def get_queryset(self):
-        # РАЗОБРАТСЯ!!!!!!! return Agregat.objects.filter(vertolet__.kwards['vertolet_'])
+    # РАЗОБРАТСЯ!!!!!!! pk_url_kwarg =
 
 
 def create_agr(request):
