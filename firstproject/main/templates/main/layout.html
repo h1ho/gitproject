@@ -12,6 +12,10 @@
     <title>{% block title %}{% endblock %}</title>
 </head>
 <body>
+    <div class="navbar">
+        <a href="{% url 'users_enter' %}"><button class="btn btn-warning">Вход</button></a>
+        <a href="{% url 'users_reg' %}"><button class="btn btn-warning">Регистрация</button></a>
+    </div>
     <aside>
         <img src="{% static 'main/img/avaimg.jpg' %}" alt="Ава">
         <h3>Навигация</h3>

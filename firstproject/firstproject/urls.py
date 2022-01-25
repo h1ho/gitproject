@@ -6,5 +6,6 @@ from django.conf.urls.static import static
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', include('main.urls')), #Указывает главную страницу
-    path('machine/', include('machine.urls'))
+    path('machine/', include('machine.urls')),
+    path('users/', include('users.urls'))
 ] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
