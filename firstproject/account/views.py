@@ -1,39 +1,42 @@
-from django.contrib.auth import authenticate, login
-from django.contrib.auth.models import User
+from django.contrib.auth import authenticate, login, logout
 from django.shortcuts import render, redirect
-from django.views.generic import TemplateView
-from django.urls import reverse
+from .forms import AccEnter, AccReg
 
 
-class LoginView(TemplateView):
-    template_name = "account/account_reg.html"
+def account_enter(request):
+    error = ''
 
-    def dispatch(self, request, *args, **kwargs):
-        context = {}
-        if request.method == 'POST':
-            username = request.POST['username']
-            password = request.POST['password']
-            user = authenticate(request, username=username, password=password)
-            if user is not None:
-                login(request, user)
-                return redirect("/")
-            else:
-                context['error'] = "Логин или пароль неправильные"
-        return render(request, self.template_name, context)
+    if request.method == 'POST':
+        form = AccEnter(request.POST)
+        username = request.POST['username']
+        password = request.POST['password']
+        user = authenticate(request, username=username, password=password)
+        if user is not None:
+            login(request, user)
+            return redirect('home')
+        else:
+            error = 'Неверный логин или пароль'
+    else:
+        form = AccEnter()
+
+    return render(request, 'account/account_enter.html', {'form': form, 'error': error})
 
 
-class RegisterView(TemplateView):
-    template_name = "account/account_reg.html"
+def account_reg(request):
+    if request.method == 'POST':
+        form = AccReg(request.POST)
+        if form.is_valid():
+            form.save()
+            username = form.cleaned_data.get('username')
+            raw_password = form.cleaned_data.get('password1')
+            user = authenticate(username=username, password=raw_password)
+            login(request, user)
+            return redirect('home')
+    else:
+        form = AccReg()
+    return render(request, 'account/account_reg.html', {'form': form})
 
-    def dispatch(self, request, *args, **kwargs):
-        if request.method == 'POST':
-            username = request.POST.get('username')
-            email = request.POST.get('email')
-            password = request.POST.get('password')
-            password2 = request.POST.get('password2')
 
-            if password == password2:
-                User.objects.create_user(username, email, password)
-                return redirect(reverse('/'))
-
-        return render(request, self.template_name)
+def logout_user(request):
+    logout(request)
+    return redirect('account_enter')

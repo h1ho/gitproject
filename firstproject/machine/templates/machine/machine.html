@@ -24,6 +24,8 @@
             </tr>
             {% endfor %}
         </table>
-        <a href="{% url 'create_agr' %}"><button class="btn btn-success" type="submit">Добавить запись</button></a>
+        {% for i in vert %}
+        <a href="{{ i.get_absolute_url }}"><button class="btn btn-success" type="submit">{{ i.vs_number }}</button></a><br><br>
+        {% endfor %}
     </div>
 {% endblock %}

@@ -12,14 +12,11 @@
     <title>{% block title %}{% endblock %}</title>
 </head>
 <body>
-    <div class="navbar">
-        <a href="{% url 'account_enter' %}"><button class="btn btn-warning">Вход</button></a>
-        <a href="{% url 'account_reg' %}"><button class="btn btn-warning">Регистрация</button></a>
-    </div>
+
     <aside>
         <img src="{% static 'main/img/avaimg.jpg' %}" alt="Ава">
         <h3>Навигация</h3>
-        <ul>
+        <ul class="menuli">
             <a href="{% url 'home' %}"><li><i class="fas fa-home"></i> Главная</li></a>
             <a href="{% url 'about' %}"><li><i class="fas fa-envelope"></i> Почта</li></a>
             <a href=""><li><i class="fas fa-user-tie"></i> Поручение</li></a>
@@ -28,6 +25,19 @@
         </ul>
     </aside>
     <main>
+        <div class="feautures">
+        {% if request.user.is_authenticated %}
+            <div class="login">
+            <a href=""><button class='btn btn-warning'>{{ user.username }}</button></a>
+            <a href="{% url 'logout' %}"><button class='btn btn-warning'>Выход</button></a>
+            </div>
+        {% else %}
+            <div class="login">
+            <a href="{% url 'account_reg' %}"><button class='btn btn-warning'>Регистрация</button></a>
+            <a href="{% url 'account_enter' %}"><button class='btn btn-warning'>Вход</button></a>
+            </div>
+        {% endif %}
+        </div>
         {% block content %}
         {% endblock %}
     </main>

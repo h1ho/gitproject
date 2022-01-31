@@ -3,10 +3,13 @@ from django.urls import reverse
 
 
 class Vertolet(models.Model):
-    vs_number = models.CharField('Номер ВС', max_length=20)
+    vs_number = models.CharField('Номер ВС', max_length=20)  #unique = true - почитать
 
     def __str__(self):
         return self.vs_number
+
+    def get_absolute_url(self):
+        return reverse('vert', kwargs={'vert_id': self.pk})
 
     class Meta:
         verbose_name = 'Вертолет'
@@ -22,6 +25,10 @@ class Agregat(models.Model):
     def __str__(self):
         return self.agregat
 
+    def get_absolute_url(self):
+        return reverse('agr', kwargs={'agr_id': self.pk})
+
     class Meta:
         verbose_name = 'Прибор'
         verbose_name_plural = 'Приборы'
+

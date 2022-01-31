@@ -1,14 +1,15 @@
 {% extends 'main/layout.html' %}
 
 {% block content %}
-    <h1>Вход на сайт</h1>
-    {% if error %}
-        <div style="color:red;">{{ error }}</div>
-    {% endif %}
+<div class="feautures">
+    <h1>Авторизация</h1>
     <form method="post">
         {% csrf_token %}
-        <input type="text" name="username" placeholder="Логин">
-        <input type="password" name="password" placeholder="Пароль">
-        <input type="submit" value="Войти">
+        <p>Логин: {{ form.username }}</p>
+        <p>Пароль: {{ form.password }}</p>
+        <button class="btn btn-success" type="submit">Войти</button>
+        <br>
+        <span>{{ error }}</span>
     </form>
+</div>
 {% endblock %}

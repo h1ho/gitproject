@@ -1,8 +1,9 @@
 from django.urls import path
 from . import views  # Из этой же папки ипортируем файл вью
-from .views import RegisterView, LoginView
 
 urlpatterns = [
-    path('', LoginView.as_view(), name='account_enter'),
-    path('registrations/', RegisterView.as_view(), name='account_reg')
+    path('login', views.account_enter, name='account_enter'),
+    path('registrations/', views.account_reg, name='account_reg'),
+    path('logout/', views.logout_user, name='logout')
+
 ]
