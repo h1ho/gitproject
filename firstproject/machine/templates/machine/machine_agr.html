@@ -3,28 +3,40 @@
 {% block title %}Машины в ремонте{% endblock %}
 
 {% block content %}
-    <div class="feautures">
-        <h1>{{ vert }}</h1>
-        <h1>{{ vertolet }}</h1>
-        {% if vert %}
-        {% endif %}
-        <table>
-            <tr>
-                <th>id</th>
-                <th>Прибор</th>
-                <th>Дата изготовления</th>
-                <th>Дата ремонта</th>
-            </tr>
-            {% for i in agr %}
-            <tr>
-                <td>{{ i.id }}</td>
-                <td>{{ i.agregat }}</td>
-                <td>{{ i.date }}</td>
-                <td>{{ i.update }}</td>
-            </tr>
-            {% endfor %}
-        </table>
-        <br>
-        <a href="{% url 'create_agr' %}"><button class="btn btn-success" type="submit">Добавить запись</button></a>
-    </div>
+<div class="feautures">
+    <h1>{{ vertolet }}</h1>
+    <table>
+        <tr>
+            <th>id</th>
+            <th>Прибор</th>
+            <th>Дата изготовления</th>
+            <th>Дата ремонта</th>
+            <th>ФИО работяги</th>
+        </tr>
+        {% for i in agregats %}
+        <tr>
+            <td>{{ i.id }}</td>
+            <td>{{ i.agregat }}</td>
+            <td>{{ i.date }}</td>
+            <td>{{ i.update }}</td>
+            {% if i.ktodelal %}
+            <td>{{ i.ktodelal }}</td>
+            {% else %}
+            <td>
+                <form name="agregat_get_to_work" method="post" action="{% url 'vitaskivaem_id' i.id %}">
+                    {% csrf_token %}
+                    <input type="hidden" name="supporttype"/>
+                    <input type="submit" value="Create a new Station"/>
+                </form>
+            </td>
+            {% endif %}
+            <!--                    <td><a href="{% url 'vitaskivaem_id' i.id %}"><button class="btn btn-success" type="submit">взять в работу {{ user.username }}</button></a></td>-->
+        </tr>
+        {% endfor %}
+    </table>
+    <br>
+    <a href="{% url 'create_agr' %}">
+        <button class="btn btn-success" type="submit">Добавить запись</button>
+    </a>
+</div>
 {% endblock %}
