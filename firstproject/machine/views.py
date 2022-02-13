@@ -21,17 +21,9 @@ class MachineView(LoginRequiredMixin, View):
         return render(request, 'machine/machine.html', context)
 
 
-# class MachineDetailView(DetailView):
-#     model = Vertolet
-#     # РАЗОБРАТСЯ queryset = Agregat.objects.filter(Vertolet__vs_number='vert_id')
-#     template_name = 'machine/machine_details.html'
-#     context_object_name = 'vertolet'
-#     # РАЗОБРАТСЯ!!!!!!! pk_url_kwarg =
-
-
 def create_agr(request):
     error = ''
-    if request.method == 'POST':  # Проверка введенных данных
+    if request.method == 'POST':
         form = AgregatForm(request.POST)
         if form.is_valid():
             form.save()
@@ -48,14 +40,11 @@ def create_agr(request):
     return render(request, 'machine/create_agr.html', data)
 
 
-# def show_post(request, vert_id):
-# return HttpResponse(f"Отображение статьи с id = {vert_id}")
-
 class GetRabotyaga(LoginRequiredMixin, View):
     def get(self, request, vert_id):
         vertolet = Vertolet.objects.get(pk=vert_id)
         agregats = Agregat.objects.filter(vertolet_id=vert_id).filter(
-            Q(ktodelal_id=request.user.id) | Q(ktodelal_id__isnull=True))  # или пустое значение
+            Q(ktodelal_id=request.user.id) | Q(ktodelal_id__isnull=True))
         context = {
             'agregats': agregats,
             'vertolet': vertolet
