@@ -21,25 +21,7 @@ class MachineView(LoginRequiredMixin, View):
         return render(request, 'machine/machine.html', context)
 
 
-def create_agr(request):
-    error = ''
-    if request.method == 'POST':
-        form = AgregatForm(request.POST)
-        if form.is_valid():
-            form.save()
-            return redirect('machine')
-        else:
-            error = 'Неверные данные'
-    else:
-        form = AgregatForm()
-
-    data = {
-        'form': form,
-        'error': error
-    }
-    return render(request, 'machine/create_agr.html', data)
-
-
+#  Вывод данных из бд через выборки
 class GetRabotyaga(LoginRequiredMixin, View):
     def get(self, request, vert_id):
         vertolet = Vertolet.objects.get(pk=vert_id)
@@ -52,6 +34,7 @@ class GetRabotyaga(LoginRequiredMixin, View):
         return render(request, 'machine/machine_agr.html', context=context)
 
 
+#  Присвоение имя пользователя к таблице с приборами
 class GetAgregatToWork(LoginRequiredMixin, View):
     def post(self, request, agregat_id: int):
         user = request.user
@@ -59,3 +42,25 @@ class GetAgregatToWork(LoginRequiredMixin, View):
         agr.ktodelal = user
         agr.save()
         return redirect(reverse('vert', kwargs={'vert_id': agr.vertolet_id}))
+
+
+class GetVertoletIdAndCreate(View):
+
+    def create_agr(self, request, pk):
+        error = ''
+        if request.method == 'POST':
+            form = AgregatForm(request.POST)
+            if form.is_valid():
+                form.save()
+                return redirect('machine')
+            else:
+                error = 'Неверные данные'
+        else:
+            form = AgregatForm()
+
+        data = {
+            'form': form,
+            'error': error,
+            'vertolets': vertolets
+        }
+        return render(request, 'machine/create_agr.html', data)

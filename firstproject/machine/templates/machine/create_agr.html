@@ -3,14 +3,17 @@
 {% block title %}Добавление данных{% endblock %}
 
 {% block content %}
+    <h1>{{ vertolets }}</h1>
     <div class="feautures">
         <form method="post">
             {% csrf_token %}
             {{ form.agregat }}<br>
             {{ form.date }}<br>
             {{ form.update }}<br>
+            {{ form.vertolet }}<br><br>
             <span>{{ error }}</span>
             <button class="btn btn-success" type="submit">Добавить запись</button>
+
         </form>
     </div>
 {% endblock %}

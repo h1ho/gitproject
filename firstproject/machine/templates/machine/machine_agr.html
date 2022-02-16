@@ -20,23 +20,24 @@
             <td>{{ i.date }}</td>
             <td>{{ i.update }}</td>
             {% if i.ktodelal %}
-            <td>{{ i.ktodelal }}</td>
+                <td>{{ i.ktodelal }}</td>
             {% else %}
             <td>
                 <form name="agregat_get_to_work" method="post" action="{% url 'vitaskivaem_id' i.id %}">
                     {% csrf_token %}
                     <input type="hidden" name="supporttype"/>
-                    <input type="submit" value="Create a new Station"/>
+                    <button class="btn btn-success" type="submit">Взять в работу</button>
                 </form>
             </td>
             {% endif %}
-            <!--                    <td><a href="{% url 'vitaskivaem_id' i.id %}"><button class="btn btn-success" type="submit">взять в работу {{ user.username }}</button></a></td>-->
         </tr>
         {% endfor %}
     </table>
     <br>
-    <a href="{% url 'create_agr' %}">
-        <button class="btn btn-success" type="submit">Добавить запись</button>
-    </a>
+    <form method="get">
+        <a href="{% url 'create' id vertoleta??? %}">
+            <button class="btn btn-success" type="submit">Добавить запись в {{ vertolet }}</button>
+        </a>
+    </form>
 </div>
 {% endblock %}

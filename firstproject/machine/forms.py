@@ -6,7 +6,7 @@ from django.forms import ModelForm, TextInput, DateTimeInput
 class AgregatForm(ModelForm):
     class Meta:
         model = Agregat
-        fields = ['agregat', 'date', 'update']
+        fields = ['agregat', 'date', 'update', 'vertolet']
 
         widgets = {
             "agregat": TextInput(attrs={
@@ -20,5 +20,5 @@ class AgregatForm(ModelForm):
             "update": DateTimeInput(attrs={
                 'class': 'form-control',
                 'placeholder': 'Дата ремонта'
-            })
+            }),
         }
