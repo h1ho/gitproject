@@ -44,23 +44,22 @@ class GetAgregatToWork(LoginRequiredMixin, View):
         return redirect(reverse('vert', kwargs={'vert_id': agr.vertolet_id}))
 
 
-class GetVertoletIdAndCreate(View):
-
-    def create_agr(self, request, pk):
-        error = ''
-        if request.method == 'POST':
-            form = AgregatForm(request.POST)
-            if form.is_valid():
-                form.save()
-                return redirect('machine')
-            else:
-                error = 'Неверные данные'
+def create_agr(request, vert_id):
+    error = ''
+    if request.method == 'POST':
+        form = forms.AgregatForm(request.POST, initial={'vertolet': Vertolet.object.get(pk=vert_id)})
+        if form.is_valid():
+            form.save(commit=False)
+            form.vs_number = vert_id
+            form.save()
+            return redirect('machine')
         else:
-            form = AgregatForm()
+            error = 'Неверные данные'
+    else:
+        form = forms.AgregatForm(initial={'vertolet': Vertolet.object.get(pk=vert_id)})
 
-        data = {
-            'form': form,
-            'error': error,
-            'vertolets': vertolets
-        }
-        return render(request, 'machine/create_agr.html', data)
+    data = {
+        'form': form,
+        'error': error
+    }
+    return render(request, 'machine/create_agr.html', data)

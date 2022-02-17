@@ -4,6 +4,7 @@
 
 {% block content %}
 <div class="feautures">
+
     <h1>{{ vertolet }}</h1>
     <table>
         <tr>
@@ -34,8 +35,9 @@
         {% endfor %}
     </table>
     <br>
-    <form method="get">
-        <a href="{% url 'create' id vertoleta??? %}">
+    <form name="create-agr" method="post" action="{% url 'create_agr' vertolet %}">
+        {% csrf_token %}
+        <a href="{% url 'create_agr' vertolet %}">
             <button class="btn btn-success" type="submit">Добавить запись в {{ vertolet }}</button>
         </a>
     </form>
